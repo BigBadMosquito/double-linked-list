@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    src/double_linked_list.cpp
+    src/double_linked_list.h
+    src/list_node.h
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
