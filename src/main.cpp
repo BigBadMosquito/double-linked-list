@@ -1,26 +1,29 @@
-#include <fstream>
-#include <iostream>
+#include "linked_list_wish_rand.h"
 
 using namespace std;
 
-int main(int argc, const char** argv) {
+int main(int argc, const char **argv)
+{
+    if (argc != 3)
+    {
+        cerr << "Usage: "s << argv[0] << " <in file> <out file>"s << endl;
+        return 1;
+    }
 
-    // if (argc != 3) {
-    //     cerr << "Usage: "s << argv[0] << " <in file> <out file>"s << endl;
-    //     return 1;
-    // }
+    LinkedListWithRand list_with_rand;
 
-    // ifstream in_file(argv[1], ios::in );
-    // if (!in_file) {
-    //     cerr << "Can't open input file"s << endl;
-    //     return 2;
-    // }
+    cout << "=== ДЕСЕРИАЛИЗАЦИЯ из inlet.in ===" << endl;
+    list_with_rand.deserialize(argv[1]);
 
-    // ofstream out_file(argv[2], ios::out | ios::binary);
-    // if (!out_file) {
-    //     cerr << "Can't open output file"s << endl;
-    //     return 2;
-    // } 
+    std::string out_file = argv[2];
+    cout << "\n=== СЕРИАЛИЗАЦИЯ " << out_file << "===" << endl;
+    list_with_rand.serialize(out_file);
 
-    return 0;
+    cout << "\n=== Проверка: читаем outlet.out ===" << endl;
+    ifstream check(out_file);
+    string line;
+    while (getline(check, line))
+    {
+        cout << line << endl;
+    }
 }

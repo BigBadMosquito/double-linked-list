@@ -2,23 +2,37 @@
 
 #include "list_node.h"
 
-class DoubleLinkedList {
+#include <deque>
+#include <unordered_map>
+#include <forward_list>
+#include <string>
+#include <sstream>
+
+class DoubleLinkedList
+{
 public:
     DoubleLinkedList();
-    ~DoubleLinkedList();
+    virtual ~DoubleLinkedList();
 
-    DoubleLinkedList(const DoubleLinkedList&) = delete;
-    DoubleLinkedList& operator=(const DoubleLinkedList&) = delete;
-    
-    DoubleLinkedList(DoubleLinkedList&& other) noexcept;
-    DoubleLinkedList& operator=(DoubleLinkedList&& other) noexcept;
+    DoubleLinkedList(const DoubleLinkedList &) = delete;
+    DoubleLinkedList &operator=(const DoubleLinkedList &) = delete;
 
-    void Clear() noexcept;
+    DoubleLinkedList(DoubleLinkedList &&other) noexcept;
+    DoubleLinkedList &operator=(DoubleLinkedList &&other) noexcept;
 
-    // void PushBack(std::string data, int rand_index);
+    virtual void clear() noexcept;
 
-    void swap(DoubleLinkedList & other) noexcept ;
-private:
-    ListNode* head_ = nullptr;
+    void push_back(std::string data);
+    size_t size() const noexcept;
 
+    void swap(DoubleLinkedList &other) noexcept;
+
+protected:
+    ListNode *head_ = nullptr;
+    ListNode *tail_ = nullptr;
+    size_t size_ = 0;
+
+    static const size_t MAX_COUNT_NODES = 1000000;
+
+    void clearImpl() noexcept;
 };
