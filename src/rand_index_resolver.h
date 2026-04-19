@@ -22,6 +22,7 @@ public:
 
 private:
     std::deque<ListNode *> index_to_node;
+    std::unordered_map<ListNode*, int> node_to_index;  
     std::unordered_map<int, std::forward_list<ListNode *>> pending_rands;
 
     void registerPending(int target_index, ListNode *source);
