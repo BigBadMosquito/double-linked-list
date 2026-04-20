@@ -37,7 +37,11 @@ void DataSerializer::read(const std::string &filename)
         readed_data_.push_back({data, rand_index});
     }
 }
-
+/**
+ * @brief Заполняет переданный список данными из прочитанного файла
+ * @param head Указатель на головной узел списка (владение остается у вызывающего кода)
+ * @note Создаваемые узлы будут удалены при удалении head вызывающим кодом
+ */
 void DataSerializer::deserializeAndLoadList(ListNode *head)
 {
     if (!head)
@@ -48,10 +52,10 @@ void DataSerializer::deserializeAndLoadList(ListNode *head)
 
     int current_index = 0;
     // 1) заполняем лист от начала до конца
-    for (auto line : readed_data_)
+    for (const auto &line : readed_data_)
     {
         ListNode *new_node = new ListNode{tail_, nullptr, nullptr, line.data};
-        if (head->next)
+        if (tail_)
         {
             tail_->next = new_node;
         }
@@ -87,9 +91,13 @@ void DataSerializer::deserializeAndLoadList(ListNode *head)
     }
 }
 
+/**
+ * @brief Заполняет файл по данным и последнему загруженному списку
+ * @param head Хранится для дальнейшей многократной сериализации в файлы
+ */
 void DataSerializer::serialize(const std::string &filename) const
 {
-    if (!head_->next)
+    if (!head_ || !head_->next)
     {
         throw std::runtime_error("Nothing to serialize - list is empty");
     }

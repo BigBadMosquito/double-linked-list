@@ -6,7 +6,7 @@ using namespace std;
 
 void ClearList(ListNode *head)
 {
-    ListNode *current = head->next;
+    ListNode *current = head;
     while (current)
     {
         ListNode *next = current->next;
@@ -14,7 +14,7 @@ void ClearList(ListNode *head)
         current = next;
     }
 
-    delete head;
+    head = nullptr;
 }
 
 int main(int argc, const char **argv)
